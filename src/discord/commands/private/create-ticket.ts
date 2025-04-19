@@ -38,11 +38,17 @@ createCommand({
         });
 
         try {
-            const selecteMenuOptions = await getSelectMenuOptions();
-            await channel.send({ embeds: [ticketEmbed], components: [selecteMenuOptions] });
+            const selectMenuOptions = await getSelectMenuOptions();
+            if (selectMenuOptions.components[0].options.length < 1) {
+                await interaction.reply({ content: `${emojis.error} | Você ainda não criou nenhuma opção!`, ephemeral: true });
+                return;
+            }
+
+            await channel.send({ embeds: [ticketEmbed], components: [selectMenuOptions] });
             await interaction.reply({ content: "Enviado!", ephemeral: true });
         } catch (err) {
             await interaction.reply({ content: "Ocorreu um erro ao tentar enviar a mensagem de abertura.", ephemeral: true });
+            console.error(err);
         }
     }
 });

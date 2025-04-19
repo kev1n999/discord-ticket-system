@@ -1,7 +1,10 @@
 import { createResponder, ResponderType } from "#base";
+import { prisma } from "#database";
 import { createRow } from "@magicyan/discord";
 import { EmbedBuilder, RoleSelectMenuBuilder } from "discord.js";
 import { rowEmbedOptions } from "discord/components/buttons/embed-options.js";
+import { selectsConfigOptions } from "discord/components/buttons/system-options";
+import { removeOptionsModal } from "discord/components/modals/remove-options";
 import { selectsModal } from "discord/components/modals/seletcs-create";
 import { selectTicketCategory } from "discord/components/selects/select-category.js";
 import { selectChannel } from "discord/components/selects/select-channel.js";
@@ -71,7 +74,43 @@ createResponder({
 
 createResponder({
     customId: "set-selects-button",
-    types: [ResponderType.Button],
+    types: [ResponderType.Button], cache: "cached",
+
+    async run(interaction) {
+        await interaction.reply({ components: [selectsConfigOptions], ephemeral: true });
+    }
+});
+
+createResponder({
+    customId: "clear-options",
+    types: [ResponderType.Button], cache: "cached",
+
+    async run(interaction) {
+        const counterOptions = await prisma.selectOptions.count();
+
+        if (counterOptions < 1) {
+            await interaction.reply({ content: `${emojis.error} | Você ainda não adicionou/criou nenhuma opção!`, ephemeral: true });
+            return;
+        }
+
+        await prisma.selectOptions.deleteMany();
+
+        await interaction.reply({ content: `${emojis.set} Todas as opções foram deletadas com sucesso.`, ephemeral: true });
+    }
+});
+
+createResponder({
+    customId: "remove-options",
+    types: [ResponderType.Button], cache: "cached",
+
+    async run(interaction) {
+        await interaction.showModal(removeOptionsModal);
+    }
+});
+
+createResponder({
+    customId: "create-options",
+    types: [ResponderType.Button], cache: "cached",
 
     async run(interaction) {
         await interaction.showModal(selectsModal);

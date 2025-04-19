@@ -41,5 +41,26 @@ const configSelectOptions = new ButtonBuilder({
     emoji: emojis.list
 });
 
+const addOptions = new ButtonBuilder({
+    label: "Criar Opções",
+    style: ButtonStyle.Secondary,
+    customId: "create-options"
+});
+
+
+const clearOptions = new ButtonBuilder({
+    label: "Limpar Opções",
+    style: ButtonStyle.Secondary,
+    customId: "clear-options"
+});
+
+const removeOption = new ButtonBuilder({
+    label: "Remover Opções",
+    style: ButtonStyle.Secondary,
+    customId: "remove-options",
+    emoji: emojis.list
+});
+
 // Armazena/agrupa os botões/opções
 export const systemButtonsRow = new ActionRowBuilder<ButtonBuilder>().addComponents(configChannelButton, configEmbedButton, configTicketCategory, configSelectOptions, setStaffRole);
+export const selectsConfigOptions = new ActionRowBuilder<ButtonBuilder>().addComponents(addOptions, clearOptions, removeOption);
