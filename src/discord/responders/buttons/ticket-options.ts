@@ -30,7 +30,12 @@ createResponder({
     types: [ResponderType.Button], cache: "cached",
 
     async run(interaction) {
-        await interaction.reply({ components: [rowUserOptions], ephemeral: true, content: `${emojis.set} Selecione uma opção:` });
+        const userClient = await prisma.ticket.findFirst({ where: { channelId: interaction.channel?.id, } });
+        if (userClient?.userId === interaction.user.id) {
+            await interaction.reply({ components: [rowUserOptions], ephemeral: true, content: `${emojis.set} Selecione uma opção:` });
+        } else {
+            await interaction.reply({ content: `${emojis.warning2} | Apenas o cliente pode usar este botão!`, ephemeral: true });
+        }
     }
 });
 
@@ -154,7 +159,7 @@ createResponder({
 createResponder({
     customId: "pendente-button",
     types: [ResponderType.Button], cache: "cached",
-
+    
     async run(interaction) {
         const ticketChannel = interaction.channel as TextChannel;
         const guildChannels = interaction.guild.channels.fetch();

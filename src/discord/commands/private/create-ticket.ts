@@ -1,13 +1,19 @@
 import { createCommand } from "#base";
 import { prisma } from "#database";
-import { EmbedBuilder, TextChannel } from "discord.js";
+import { EmbedBuilder, PermissionFlagsBits, TextChannel } from "discord.js";
 import { getSelectMenuOptions } from "discord/components/selects/select-product";
+import { emojis } from "discord/emojis/emojis_mentions";
 
 createCommand({
-    name: "create-ticket",
-    description: "Enviar mensagem para abertura de tickets no canal configurado",
+    name: "enviar_ticket",
+    description: "Ativa a mensagem para abertura de tickets!",
 
     async run(interaction) {
+        if (!interaction.member.permissions.has(PermissionFlagsBits.Administrator)) {
+            await interaction.reply({ content: `${emojis.error} | Você não possui as permissões necessárias para o uso deste comando.`, ephemeral: true });
+            return;
+        }
+        
         const channelId = await prisma.textChannel.findUnique({ where: {id : 1} });
 
         if (!channelId) {
