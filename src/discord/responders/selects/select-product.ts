@@ -1,5 +1,6 @@
 import { createResponder, ResponderType } from "#base";
 import { prisma } from "#database";
+import { TicketDatabase } from "database/bases/ticket";
 import { ChannelType, EmbedBuilder } from "discord.js";
 import { firstButtons } from "discord/components/buttons/ticket-options";
 import { selectProductsMenu } from "discord/components/selects/select-product";
@@ -56,7 +57,8 @@ createResponder({
             await originalMessage?.pin();
             await ticketChannel?.bulkDelete(1);
 
-            await prisma.originalMessage.create({ data: { id: 1, messageId: originalMessage.id } });
+            // Salva dados do cliente e canal do ticket
+            new TicketDatabase(interaction.user.id, ticketChannel.id, originalMessage.id).registerTicket();
         } else {
             await interaction.reply({
                 content: "Não encontrei a categoria definida!",

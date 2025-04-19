@@ -9,9 +9,3 @@ model Category {
 
     categoryId String
 }
-
-model OriginalMessage {
-    id Int @id 
-
-    messageId String
-}

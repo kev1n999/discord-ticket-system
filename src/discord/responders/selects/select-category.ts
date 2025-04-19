@@ -1,5 +1,6 @@
 import { createResponder, ResponderType } from "#base";
 import { TicketCategory } from "database/bases/category.js";
+import { emojis } from "discord/emojis/emojis_mentions";
 
 createResponder({
     customId: "selected-category",
@@ -10,7 +11,7 @@ createResponder({
         new TicketCategory(categoryId).saveCategory();
 
         await interaction.reply({
-            content: "Categoria definida com sucesso!",
+            content: `${emojis.settings} | Categoria definida com sucesso!`,
             ephemeral: true 
         });
     }

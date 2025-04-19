@@ -1,8 +1,10 @@
 import { createResponder, ResponderType } from "#base";
-import { EmbedBuilder } from "discord.js";
+import { createRow } from "@magicyan/discord";
+import { EmbedBuilder, RoleSelectMenuBuilder } from "discord.js";
 import { rowEmbedOptions } from "discord/components/buttons/embed-options.js";
 import { selectTicketCategory } from "discord/components/selects/select-category.js";
 import { selectChannel } from "discord/components/selects/select-channel.js";
+import { emojis } from "discord/emojis/emojis_mentions";
 
 createResponder({
     customId: "set-channel-button",
@@ -10,7 +12,7 @@ createResponder({
 
     async run(interaction) {
         await interaction.reply({
-            content: "-# Selecione o canal de texto para o ticket-system:",
+            content: `${emojis.settings} | Defina qual será o canal de texto responsável pela abertura de tickets:`,
             components: [selectChannel],
             ephemeral: true 
         });
@@ -43,9 +45,25 @@ createResponder({
 
     async run(interaction) {
         await interaction.reply({
-            content: "Selecione a categoria que deseja definir para os canais de atendimento. (Essa categoria será onde os canais de atendimento serão criados)",
+            content: `${emojis.settings} | Defina qual será a categoria responsável pelos canais/tickets abertos:`,
             components: [selectTicketCategory],
             ephemeral: true 
         });
     }
-})
+});
+
+createResponder({
+    customId: "set-staffrole-button",
+    types: [ResponderType.Button], cache: "cached",
+
+    async run(interaction) {
+        const selectRole = createRow(
+            new RoleSelectMenuBuilder({
+                placeholder: "Defina o role de staff",
+                customId: "selected-staff-role"
+            }).setDefaultRoles()
+        );
+
+        await interaction.reply({ components: [selectRole], ephemeral: true, content: `${emojis.settings} | Defina qual será o cargo responsável pela staff:` });
+    }
+});

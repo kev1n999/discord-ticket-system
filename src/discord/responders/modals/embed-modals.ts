@@ -1,5 +1,6 @@
 import { createResponder, ResponderType } from "#base";
 import { SetEmbedConfig } from "database/bases/embed.js";
+import { emojis } from "discord/emojis/emojis_mentions";
 
 
 const embedConfig = new SetEmbedConfig();
@@ -14,7 +15,7 @@ createResponder({
         await embedConfig.saveSettings();
 
         await interaction.reply({
-            content: `✅ Título definido com sucesso!`,
+            content: `${emojis.settings} | Título definido com sucesso!`,
             ephemeral: true
         });
     }
@@ -30,7 +31,7 @@ createResponder({
         await embedConfig.saveSettings();
 
         await interaction.reply({
-            content: `✅ Descrição definida com sucesso!`,
+            content: `${emojis.settings} | Descrição definida com sucesso!`,
             ephemeral: true
         });
     }
@@ -46,7 +47,7 @@ createResponder({
         await embedConfig.saveSettings();
 
         await interaction.reply({
-            content: `✅ Footer definido com sucesso!`,
+            content: `${emojis.settings} | Footer definido com sucesso!`,
             ephemeral: true
         });
     }
@@ -62,7 +63,7 @@ createResponder({
         await embedConfig.saveSettings();
 
         await interaction.reply({
-            content: `✅ Imagem definida com sucesso!`,
+            content: `${emojis.settings} | Imagem definida com sucesso!`,
             ephemeral: true
         });
     }
@@ -78,7 +79,7 @@ createResponder({
         await embedConfig.saveSettings();
 
         await interaction.reply({
-            content: `✅ Cor definida com sucesso!`,
+            content: `${emojis.settings} | Cor definida com sucesso!`,
             ephemeral: true
         });
     }

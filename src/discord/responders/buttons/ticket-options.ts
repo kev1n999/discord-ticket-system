@@ -2,16 +2,25 @@ import { ResponderType } from "#base";
 import { prisma } from "#database";
 import { EmbedBuilder } from "@discordjs/builders";
 import { createResponder } from "discord";
-import { PermissionFlagsBits, TextChannel } from "discord.js";
+import { ChannelType, PermissionFlagsBits, TextChannel } from "discord.js";
 import { rowOptionsUpdate, rowStaffOptions, rowTicketSetStatusButtons, rowUserOptions } from "discord/components/buttons/ticket-options";
 import { selectedRemoveUser, selectNewUser } from "discord/components/selects/user-select";
 import { emojis } from "discord/emojis/emojis_mentions";
+import { isStaff } from "functions/has-staff";
+
 
 createResponder({
     customId: "staff-painel-button",
     types: [ResponderType.Button], cache: "cached",
 
     async run(interaction) {
+        const isStaffRole = await isStaff(interaction.member);
+        
+        if (!isStaffRole) {
+            await interaction.reply("Sem permissao");
+            return;
+        }
+
         await interaction.reply({ components: [rowStaffOptions], ephemeral: true, content: `${emojis.set} Selecione uma opção:` });
     }
 });
@@ -57,16 +66,15 @@ createResponder({
             return;
         } 
 
-        const originalMessageId = await prisma.originalMessage.findUnique({ where: { id: 1 } });
+        const originalMessageId = await prisma.ticket.findFirst({ where: { userId: interaction.user.id, channelId: ticketChannel.id } });
         const original = interaction.channel?.messages.cache.get(originalMessageId?.messageId!);
 
         await ticketChannel.edit({
             permissionOverwrites: [
-                { id: interaction.guild!.id, allow: "ViewChannel"}
+                { id: interaction.guild!.id, deny: "ViewChannel"}, 
+                { id: interaction.user.id, deny: "ViewChannel" }
             ]
         });
-
-        await interaction.reply({ content: "-# ✅ | Ticket salvo como: finalizado", ephemeral: true });
 
         const embedTicketInfo = new EmbedBuilder({
             description: `# ${emojis.ticketclose} Ticket Finalizado.\n${emojis.set} Este ticket foi encerrado por ${interaction.user.toString()}`,
@@ -89,7 +97,7 @@ createResponder({
 
         if (!interaction.memberPermissions?.has(PermissionFlagsBits.Administrator)) {
             await interaction.reply({ 
-                content: `${emojis.error} | Não foi possível deletar este ticket.\n\n-# Você não possui as permissões necessárias;`, 
+                content: `${emojis.error} -# Você não possui as permissões necessárias;`, 
                 ephemeral: true 
             });
             return;
@@ -115,7 +123,7 @@ createResponder({
     async run(interaction) {
         if (!interaction.memberPermissions?.has(PermissionFlagsBits.Administrator)) {
             await interaction.reply({ 
-                content: `${emojis.error}.\n-# Você não possui as permissões necessárias;`,
+                content: `${emojis.error} -# Você não possui as permissões necessárias;`,
                 ephemeral: true 
             });
             return;
@@ -132,26 +140,35 @@ createResponder({
     async run(interaction) {
         if (!interaction.memberPermissions?.has(PermissionFlagsBits.Administrator)) {
             await interaction.reply({ 
-                content: `${emojis.error} | Não foi possível deletar este ticket.\n\n-# Você não possui as permissões necessárias;`,
+                content: `${emojis.error} -# Você não possui as permissões necessárias;`,
                 ephemeral: true 
             });
             return;
         }
 
-        await interaction.reply({ content: "-# 👤 | Selecione um usuário para remover:", components: [selectedRemoveUser], ephemeral: true });
+        await interaction.reply({ content: `${emojis.user} | Selecione um usuário para ser removido deste ticket:`, components: [selectedRemoveUser], ephemeral: true });
     }
 });
 
-
+// Define o status como Pendente
 createResponder({
     customId: "pendente-button",
     types: [ResponderType.Button], cache: "cached",
 
     async run(interaction) {
-        await interaction.reply("Em andamento...");
+        const ticketChannel = interaction.channel as TextChannel;
+        const pendenteCategory = interaction.guild.channels.cache.find(channel => channel.type === ChannelType.GuildCategory && channel.name.toLowerCase() === "pendnete");
+
+        if (!pendenteCategory) {
+            const category = await interaction.guild.channels.create({ type: ChannelType.GuildCategory, name: "pendente" });
+            await ticketChannel.edit({ parent: category.id });
+        } else {
+            await ticketChannel.edit({ parent: pendenteCategory.id });
+        }
     }
 });
 
+// Define o status como Finalizado
 createResponder({
     customId: "finalizado-button",
     types: [ResponderType.Button], cache: "cached",
@@ -161,6 +178,7 @@ createResponder({
     }
 });
 
+// Define o status como Em Desenvolvimento
 createResponder({
     customId: "desenvolvimento-button",
     types: [ResponderType.Button], cache: "cached",
@@ -170,6 +188,7 @@ createResponder({
     }
 });
 
+// Define o status como Entregue
 createResponder({
     customId: "entregue-button",
     types: [ResponderType.Button], cache: "cached",
