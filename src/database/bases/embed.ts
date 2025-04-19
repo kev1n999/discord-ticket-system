@@ -19,6 +19,9 @@ export class SetEmbedConfig implements EmbedSettings {
     public color?: string
   ) {}
 
+  /**
+   * Método para salvar e armazenar configurações da embed
+   */
   async saveSettings(): Promise<void> {
     const existing = await prisma.embed.findUnique({
       where: { id: 1 },

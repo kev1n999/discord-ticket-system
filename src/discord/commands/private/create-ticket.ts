@@ -1,7 +1,7 @@
 import { createCommand } from "#base";
 import { prisma } from "#database";
 import { EmbedBuilder, TextChannel } from "discord.js";
-import { selectProductsMenu } from "discord/components/selects/select-product.js";
+import { getSelectMenuOptions } from "discord/components/selects/select-product";
 
 createCommand({
     name: "create-ticket",
@@ -32,7 +32,8 @@ createCommand({
         });
 
         try {
-            await channel.send({ embeds: [ticketEmbed], components: [selectProductsMenu] });
+            const selecteMenuOptions = await getSelectMenuOptions();
+            await channel.send({ embeds: [ticketEmbed], components: [selecteMenuOptions] });
             await interaction.reply({ content: "Enviado!", ephemeral: true });
         } catch (err) {
             await interaction.reply({ content: "Ocorreu um erro ao tentar enviar a mensagem de abertura.", ephemeral: true });

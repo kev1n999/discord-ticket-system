@@ -11,6 +11,7 @@ interface TicketData {
 export class TicketDatabase implements TicketData {
     constructor (public userId: string, public channelId: string, public messageId: string) {};
 
+    // Método para salvar e armazenar informações quando um ticket for aberto
     async registerTicket(): Promise<void> { 
         await prisma.ticket.create({
             data: {
@@ -20,4 +21,4 @@ export class TicketDatabase implements TicketData {
             }
         });
     }
-}
+};

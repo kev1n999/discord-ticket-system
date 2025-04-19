@@ -9,11 +9,15 @@ interface CategorySettings {
 export class TicketCategory implements CategorySettings {
     constructor(public categoryId: string) {};
 
+    /**
+     * Método para salvar e armazenar o ID da categoria selecionada nas opções de configuração
+     * Esse ID será usado para definir onde será criado os canais/tickets no servidor
+     */
     async saveCategory(): Promise<void> {
         const existing = await prisma.category.findUnique({
             where: { id: 1 },
         });
-
+        
         if (existing) {
             await prisma.category.update({
                 where: { id: 1 },

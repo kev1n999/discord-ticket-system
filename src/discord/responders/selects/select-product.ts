@@ -3,11 +3,11 @@ import { prisma } from "#database";
 import { TicketDatabase } from "database/bases/ticket";
 import { ChannelType, EmbedBuilder } from "discord.js";
 import { firstButtons } from "discord/components/buttons/ticket-options";
-import { selectProductsMenu } from "discord/components/selects/select-product";
+import { getSelectMenuOptions } from "discord/components/selects/select-product";
 import { emojis_mentions } from "discord/emojis/mentions.json";
 
 createResponder({
-    customId: "selected-product",
+    customId: "selected-option",
     types: [ResponderType.StringSelect], cache: "cached",
 
     async run(interaction) {
@@ -35,8 +35,9 @@ createResponder({
                 content: `${emojis_mentions.set} Seu ticket foi aberto com sucesso em: ${ticketChannel?.toString()}\n-# ${emojis_mentions.warning2} Seja sempre paciente e respeitoso com a staff!`,
                 ephemeral: true  
             });
+            const selectMenuOptions = await getSelectMenuOptions();
 
-            await interaction.message.edit({ components: [selectProductsMenu] });
+            await interaction.message.edit({ components: [selectMenuOptions] });
 
             const embedTicketInfo = new EmbedBuilder({
                 description: `# ${emojis_mentions.ticketopen} Ticket Aberto\n${emojis_mentions.set} Olá ${interaction.user.toString()}, seja bem vindo ao seu ticket!\n${emojis_mentions.set} Aguarde pacientemente pelo staff que irá atende-lô.`,

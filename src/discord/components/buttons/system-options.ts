@@ -34,5 +34,12 @@ const setStaffRole = new ButtonBuilder({
     emoji: emojis.option
 });
 
+const configSelectOptions = new ButtonBuilder({
+    label: "Selects",
+    style: ButtonStyle.Secondary,
+    customId: "set-selects-button",
+    emoji: emojis.list
+});
+
 // Armazena/agrupa os botões/opções
-export const systemButtonsRow = new ActionRowBuilder<ButtonBuilder>().addComponents(configChannelButton, configEmbedButton, configTicketCategory, setStaffRole);
+export const systemButtonsRow = new ActionRowBuilder<ButtonBuilder>().addComponents(configChannelButton, configEmbedButton, configTicketCategory, configSelectOptions, setStaffRole);

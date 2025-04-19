@@ -38,29 +38,34 @@ export const colorModal = new ModalBuilder({
 const titleInput = new TextInputBuilder({
     label: "Qual será o titúlo?",
     customId: "title-input",
+    placeholder: "Insira o titúlo",
     style: TextInputStyle.Short
 });
 
 const descriptionInput = new TextInputBuilder({
     label: "Qual será a descrição?",
     customId: "description-input",
+    placeholder: "Insira a descrição",
     style: TextInputStyle.Paragraph
 });
 
 const footerinput = new TextInputBuilder({
     label: "Qual será o footer",
     customId: "footer-input",
+    placeholder: "Insira o texto do footer",
     style: TextInputStyle.Short
 });
 
 const imageInput = new TextInputBuilder({
     label: "Qual será a imagem?",
+    placeholder: "Insira a URL da imagem",
     customId: "image-input",
     style: TextInputStyle.Short
 });
 
 const colorInput = new TextInputBuilder({
     label: "Coloque o valor da cor em HEX",
+    placeholder: "Informe a cor",
     customId: "color-input",
     style: TextInputStyle.Short 
 });

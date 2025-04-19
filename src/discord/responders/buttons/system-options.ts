@@ -2,6 +2,7 @@ import { createResponder, ResponderType } from "#base";
 import { createRow } from "@magicyan/discord";
 import { EmbedBuilder, RoleSelectMenuBuilder } from "discord.js";
 import { rowEmbedOptions } from "discord/components/buttons/embed-options.js";
+import { selectsModal } from "discord/components/modals/seletcs-create";
 import { selectTicketCategory } from "discord/components/selects/select-category.js";
 import { selectChannel } from "discord/components/selects/select-channel.js";
 import { emojis } from "discord/emojis/emojis_mentions";
@@ -65,5 +66,14 @@ createResponder({
         );
 
         await interaction.reply({ components: [selectRole], ephemeral: true, content: `${emojis.settings} | Defina qual será o cargo responsável pela staff:` });
+    }
+});
+
+createResponder({
+    customId: "set-selects-button",
+    types: [ResponderType.Button],
+
+    async run(interaction) {
+        await interaction.showModal(selectsModal);
     }
 });
