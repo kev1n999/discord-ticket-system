@@ -157,14 +157,26 @@ createResponder({
 
     async run(interaction) {
         const ticketChannel = interaction.channel as TextChannel;
-        const pendenteCategory = interaction.guild.channels.cache.find(channel => channel.type === ChannelType.GuildCategory && channel.name.toLowerCase() === "pendnete");
+        const guildChannels = interaction.guild.channels.fetch();
+
+        let pendenteCategory = (await guildChannels).find(
+            (channel) => channel?.type === ChannelType.GuildCategory && channel.name.toLowerCase() === "pendente"
+        );
 
         if (!pendenteCategory) {
-            const category = await interaction.guild.channels.create({ type: ChannelType.GuildCategory, name: "pendente" });
-            await ticketChannel.edit({ parent: category.id });
-        } else {
-            await ticketChannel.edit({ parent: pendenteCategory.id });
+            pendenteCategory = await interaction.guild.channels.create({
+                type: ChannelType.GuildCategory,
+                name: "pendente"
+            });
         }
+
+        if (ticketChannel.parent?.id === pendenteCategory.id) {
+            await interaction.reply({ content: `${emojis.warning2} | Este ticket já está definido como **pendnete**!`, ephemeral: true });
+            return;
+        }
+
+        await ticketChannel.edit({ parent: pendenteCategory.id });
+        await interaction.reply({ content: `${emojis.pendente} | O status deste ticket foi atualizado para **pendente**.`, ephemeral: true })
     }
 });
 
@@ -174,9 +186,30 @@ createResponder({
     types: [ResponderType.Button], cache: "cached",
 
     async run(interaction) {
-        await interaction.reply("Em andamento...");
+        const ticketChannel = interaction.channel as TextChannel;
+        const guildChannels = interaction.guild.channels.fetch();
+
+        let finalizadoCategory = (await guildChannels).find(
+            (channel) => channel?.type === ChannelType.GuildCategory && channel.name.toLowerCase() === "finalizado"
+        );
+
+        if (!finalizadoCategory) {
+            finalizadoCategory = await interaction.guild.channels.create({
+                type: ChannelType.GuildCategory,
+                name: "finalizado"
+            });
+        }
+
+        if (ticketChannel.parent?.id === finalizadoCategory.id) {
+            await interaction.reply({ content: `${emojis.warning2} | Este ticket já está definido como **finalizado**!`, ephemeral: true });
+            return;
+        }
+
+        await ticketChannel.edit({ parent: finalizadoCategory.id });
+        await interaction.reply({ content: `${emojis.finalizado} | O status deste ticket foi atualizado para **finalizado**.`, ephemeral: true });
     }
 });
+
 
 // Define o status como Em Desenvolvimento
 createResponder({
@@ -184,9 +217,30 @@ createResponder({
     types: [ResponderType.Button], cache: "cached",
 
     async run(interaction) {
-        await interaction.reply("Em andamento...");
+        const ticketChannel = interaction.channel as TextChannel;
+        const guildChannels = interaction.guild.channels.fetch();
+
+        let desenvolvimentoCategory = (await guildChannels).find(
+            (channel) => channel?.type === ChannelType.GuildCategory && channel.name.toLowerCase() === "em desenvolvimento"
+        );
+
+        if (!desenvolvimentoCategory) {
+            desenvolvimentoCategory = await interaction.guild.channels.create({
+                type: ChannelType.GuildCategory,
+                name: "em desenvolvimento"
+            });
+        }
+
+        if (ticketChannel.parent?.id === desenvolvimentoCategory.id) {
+            await interaction.reply({ content: `${emojis.warning2} | Este ticket já está definido como **Em desenvolvimento**!`, ephemeral: true });
+            return;
+        }
+
+        await ticketChannel.edit({ parent: desenvolvimentoCategory.id });
+        await interaction.reply({ content: `${emojis.development} | O status deste ticket foi atualizado para **em desenvolvimento**.`, ephemeral: true });
     }
 });
+
 
 // Define o status como Entregue
 createResponder({
@@ -194,6 +248,26 @@ createResponder({
     types: [ResponderType.Button], cache: "cached",
 
     async run(interaction) {
-        await interaction.reply("Em andamento...");
+        const ticketChannel = interaction.channel as TextChannel;
+        const guildChannels = interaction.guild.channels.fetch();
+
+        let entregueCategory = (await guildChannels).find(
+            (channel) => channel?.type === ChannelType.GuildCategory && channel.name.toLowerCase() === "entregue"
+        );
+
+        if (!entregueCategory) {
+            entregueCategory = await interaction.guild.channels.create({
+                type: ChannelType.GuildCategory,
+                name: "entregue"
+            });
+        }
+
+        if (ticketChannel.parent?.id === entregueCategory.id) {
+            await interaction.reply({ content: `${emojis.warning2} | Este ticket já está definido como **entregue**!`, ephemeral: true });
+            return;
+        }
+
+        await ticketChannel.edit({ parent: entregueCategory.id });
+        await interaction.reply({ content: `${emojis.box} | O status deste ticket foi atualizado para **entregue**.`, ephemeral: true });
     }
 });
