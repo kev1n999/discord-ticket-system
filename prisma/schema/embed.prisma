@@ -1,0 +1,8 @@
+model Embed {
+  id          Int     @id
+  title       String?
+  description String?
+  footer      String?
+  image       String?
+  color       String?
+}

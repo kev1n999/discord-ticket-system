@@ -1,0 +1,22 @@
+{
+    "emojis_mentions": {
+        "hands": "<:hand:1362786962607575191>",
+        "warning2": "<:warning2:1362786960787378317>",
+        "set": "<:set:1362796743909183702>",
+        "settings": "<:cisettings:1362795492173680771>",
+        "ticketopen": "<:ticketopen:1362795490529513572>",
+        "ticketclose": "<:ticketclose:1362810656323141642>",
+        "sinal_mais": "<:mais:1362804058368376832>",
+        "sinal_menos": "<:menos:1362804059836252332>",
+        "pendente": "<:pendente:1362804066698395769>",
+        "finalizado": "<:finalizado:1362804068363276399>",
+        "lixeira": "<:lixeira:1362804065259491520>",
+        "close": "<:close:1362804063254614056>",
+        "raio": "<:raio:1362804061308453054>",
+        "error": "<:err:1362808020538757120>",
+        "option": "<:option:1362821853575385319>",
+        "user": "<:user:1362821855093719341>",
+        "development": "<:development:1362837953746829564>",
+        "box": "<:box:1362837952400724051>"
+    }
+}

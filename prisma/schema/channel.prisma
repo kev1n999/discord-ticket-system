@@ -1,0 +1,17 @@
+model TextChannel {
+    id Int @id 
+
+    channelId String 
+}
+
+model Category {
+    id Int @id 
+
+    categoryId String
+}
+
+model OriginalMessage {
+    id Int @id 
+
+    messageId String
+}
