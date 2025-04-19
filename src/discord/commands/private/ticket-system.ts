@@ -14,7 +14,7 @@ createCommand({
                 return;
         }
         
-        const embedDescription = `# ${emojis.settings} | Sistema de Tickets - Configuração\n${emojis.set}  Olá! Seja bem vindo ao painel para configurar o sistema de tickets neste servidor.\n\n**${emojis.raio} | Opções disponíveis:**\n\n${emojis.set} Canal de Texto: Definir canal de abertura\n${emojis.set} Embed: Definir embed`;
+        const embedDescription = `# ${emojis.settings} | Sistema de Tickets - Configuração\n${emojis.set}  Olá! Seja bem vindo ao painel para configurar o sistema de tickets neste servidor.\n\n**${emojis.raio} | Opções disponíveis:**\n\n${emojis.set} Canal de Texto: Definir canal de abertura\n${emojis.set} Embed: Definir embed\n${emojis.set} Categoria: Definir categoria dos tickets\n${emojis.set} Selects: Criar ou remover opções de abertura\n${emojis.set} Cargo Staff: Definir o cargo da staff.`;
 
         const embed = new EmbedBuilder({
             description: embedDescription,

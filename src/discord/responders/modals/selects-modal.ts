@@ -12,7 +12,7 @@ createResponder({
         const description = interaction.fields.getTextInputValue("input-description");
         const value = interaction.fields.getTextInputValue("input-value");
 
-        if (label.length > 10) {
+        if (label.length > 25) {
             await interaction.reply({ content: `${emojis.error} | Label muito longa!`, ephemeral: true });
             return;
         } else if (label.length < 1) {

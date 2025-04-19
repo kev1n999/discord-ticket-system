@@ -126,15 +126,30 @@ createResponder({
     types: [ResponderType.Button], cache: "cached",
 
     async run(interaction) {
-        if (!interaction.memberPermissions?.has(PermissionFlagsBits.Administrator)) {
-            await interaction.reply({ 
-                content: `${emojis.error} -# Você não possui as permissões necessárias;`,
-                ephemeral: true 
-            });
+        await interaction.reply({ content: `${emojis.user} | Adicione um usuário neste ticket:`, components: [selectNewUser], ephemeral: true });
+    }
+});
+
+createResponder({
+    customId: "selected-new-user",
+    types: [ResponderType.UserSelect], cache: "cached",
+
+    async run(interaction) {
+        const userId = interaction.values[0];
+        const ticketChannel = interaction.channel as TextChannel;
+
+        if (ticketChannel.members.has(userId)) {
+            await interaction.reply({ content: `${emojis.warning2} | Este usuário já está neste ticket!`, ephemeral: true });
             return;
         }
 
-        await interaction.reply({ content: "-# 👤 | Selecione um usuário para adicionar:", components: [selectNewUser], ephemeral: true });
+        await ticketChannel.edit({
+            permissionOverwrites: [
+                { id: userId, allow: ["ViewChannel", "SendMessages"]}
+            ]   
+        });
+
+        await interaction.reply({ content: `${emojis.set} Usuário adicionado com sucesso!`, ephemeral: true });
     }
 });
 
@@ -152,6 +167,29 @@ createResponder({
         }
 
         await interaction.reply({ content: `${emojis.user} | Selecione um usuário para ser removido deste ticket:`, components: [selectedRemoveUser], ephemeral: true });
+    }
+});
+
+createResponder({
+    customId: "selected-remove-user",
+    types: [ResponderType.UserSelect], cache: "cached",
+
+    async run(interaction) {
+        const userId = interaction.values[0];
+        const ticketChannel = interaction.channel as TextChannel;
+
+        if (!ticketChannel.members.has(userId)) {
+            await interaction.reply({ content: `${emojis.warning2} | Este usuário não está neste ticket!`, ephemeral: true });
+            return;
+        }
+
+        await ticketChannel.edit({
+            permissionOverwrites: [
+                { id: userId, deny: ["ViewChannel"]}
+            ]   
+        });
+
+        await interaction.reply({ content: `${emojis.set} Usuário removido com sucesso!`, ephemeral: true });
     }
 });
 
