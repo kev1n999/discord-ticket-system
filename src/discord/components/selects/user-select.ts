@@ -8,6 +8,7 @@ export const selectNewUser = new ActionRowBuilder<UserSelectMenuBuilder>().addCo
     })
 .setDefaultUsers());
 
+// Select para remover um usuário já adicionado do canal de ticket
 export const selectedRemoveUser = new ActionRowBuilder<UserSelectMenuBuilder>().addComponents(
     new UserSelectMenuBuilder({
         placeholder: "Selecione um usuário..." ,

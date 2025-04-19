@@ -27,6 +27,7 @@ const configTicketCategory = new ButtonBuilder({
     emoji: emojis.folder
 });
 
+// Botão para definir o cargo da staff
 const setStaffRole = new ButtonBuilder({
     label: "Cargo Staff",
     style: ButtonStyle.Secondary,
@@ -34,6 +35,7 @@ const setStaffRole = new ButtonBuilder({
     emoji: emojis.option
 });
 
+// Botão para abrir configuração de opções do select-menu
 const configSelectOptions = new ButtonBuilder({
     label: "Selects",
     style: ButtonStyle.Secondary,
@@ -41,24 +43,28 @@ const configSelectOptions = new ButtonBuilder({
     emoji: emojis.list
 });
 
+// Botão para adicionar opções ao select-menu
 const addOptions = new ButtonBuilder({
     label: "Criar Opções",
     style: ButtonStyle.Secondary,
-    customId: "create-options"
+    customId: "create-options",
+    emoji: emojis.sinal_mais
 });
 
-
+// Botão para remover todas/limpar as opções do select-menu
 const clearOptions = new ButtonBuilder({
     label: "Limpar Opções",
     style: ButtonStyle.Secondary,
-    customId: "clear-options"
+    customId: "clear-options",
+    emoji: emojis.lixeira
 });
 
+// Botão para remover uma opção do select-menu
 const removeOption = new ButtonBuilder({
     label: "Remover Opções",
     style: ButtonStyle.Secondary,
     customId: "remove-options",
-    emoji: emojis.list
+    emoji: emojis.sinal_menos
 });
 
 // Armazena/agrupa os botões/opções

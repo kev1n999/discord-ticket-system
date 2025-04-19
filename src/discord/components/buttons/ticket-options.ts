@@ -70,6 +70,7 @@ const setPendente = new ButtonBuilder({
     emoji: emojis_mentions.pendente
 });
 
+// Botão de definição para status em desenvolvimento
 const setDevelopment = new ButtonBuilder({
     label: "Em desenvolvimento...",
     style: ButtonStyle.Secondary,
@@ -85,6 +86,7 @@ const setExit = new ButtonBuilder({
     emoji: emojis_mentions.finalizado
 });
 
+// Botão para definição para status entregue
 const setEntregue = new ButtonBuilder({
     label: "Entregue",
     style: ButtonStyle.Secondary,

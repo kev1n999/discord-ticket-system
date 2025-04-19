@@ -10,6 +10,7 @@ import { selectTicketCategory } from "discord/components/selects/select-category
 import { selectChannel } from "discord/components/selects/select-channel.js";
 import { emojis } from "discord/emojis/emojis_mentions";
 
+// Envia o select para definição do canal de texto da abertura
 createResponder({
     customId: "set-channel-button",
     types: [ResponderType.Button], cache: "cached",
@@ -23,6 +24,7 @@ createResponder({
     }
 });
 
+// Painel de opções para configuração e personalização da embed
 createResponder({
     customId: "set-embed-button",
     types: [ResponderType.Button], cache: "cached",
@@ -43,6 +45,7 @@ createResponder({
     }
 });
 
+// Envia o select para definição da categoria dos canais de ticket
 createResponder({
     customId: "set-category-button",
     types: [ResponderType.Button], cache: "cached",
@@ -56,6 +59,7 @@ createResponder({
     }
 });
 
+// Envia o select para a definição do cargo da staff
 createResponder({
     customId: "set-staffrole-button",
     types: [ResponderType.Button], cache: "cached",
@@ -72,6 +76,7 @@ createResponder({
     }
 });
 
+// Envia o painel de opções para criação ou remoção de opções do ticket-menu
 createResponder({
     customId: "set-selects-button",
     types: [ResponderType.Button], cache: "cached",
@@ -81,6 +86,7 @@ createResponder({
     }
 });
 
+// Limpa todas as opções criadas do select-menu
 createResponder({
     customId: "clear-options",
     types: [ResponderType.Button], cache: "cached",
@@ -99,6 +105,7 @@ createResponder({
     }
 });
 
+// Remove uma opção específica a partir do label dela no select-menu
 createResponder({
     customId: "remove-options",
     types: [ResponderType.Button], cache: "cached",
@@ -108,6 +115,7 @@ createResponder({
     }
 });
 
+// Envia a modal responsável pela criação das opções no select-menu
 createResponder({
     customId: "create-options",
     types: [ResponderType.Button], cache: "cached",

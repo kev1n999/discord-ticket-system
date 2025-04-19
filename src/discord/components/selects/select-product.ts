@@ -2,6 +2,7 @@ import { prisma } from "#database";
 import { createRow } from "@magicyan/discord";
 import { StringSelectMenuBuilder, StringSelectMenuOptionBuilder } from "discord.js";
 
+// Função que retorna todas as opções do select-menu que foram criadas pelo usuário
 export async function getSelectMenuOptions() {
     const options = await prisma.selectOptions.findMany();
 
