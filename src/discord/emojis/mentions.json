@@ -20,6 +20,11 @@
         "box": "<:box:1362837952400724051>",
         "folder": "<:uilfolderopen:1363232329408975099>",
         "write": "<:uileditalt:1363232327890895031>",
-        "list": "<:cuidafilteroutline:1363242858248667226>"
+        "list": "<:cuidafilteroutline:1363242858248667226>",
+        "voltar": "<:meteoriconsarrowrotate:1363568014867562697>",
+        "link": "<:heroiconspaperclip20solid:1363573328110948372>",
+        "color": "<:heroiconspaintbrushsolid:1363573322968731808>",
+        "footer": "<:heroiconsnewspapersolid:1363573329834803411>",
+        "image": "<:heroiconsphoto16solid:1363573324357046422>"
     }
 }

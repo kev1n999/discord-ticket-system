@@ -1,3 +1,4 @@
+import { createRow } from "@magicyan/discord";
 import { ButtonBuilder, ButtonStyle } from "discord.js";
 import { ActionRowBuilder } from "discord.js";
 import { emojis } from "discord/emojis/emojis_mentions";
@@ -66,6 +67,15 @@ const removeOption = new ButtonBuilder({
     customId: "remove-options",
     emoji: emojis.sinal_menos
 });
+
+// Botão para voltar à mensagem anterior
+export const anteriorMessage = createRow(
+    new ButtonBuilder({
+        style: ButtonStyle.Secondary,
+        customId: "voltar-button",
+        emoji: emojis.voltar
+    })
+);
 
 // Armazena/agrupa os botões/opções
 export const systemButtonsRow = new ActionRowBuilder<ButtonBuilder>().addComponents(configChannelButton, configEmbedButton, configTicketCategory, configSelectOptions, setStaffRole);

@@ -22,6 +22,7 @@ createResponder({
         }
 
         await interaction.reply({ components: [rowStaffOptions], ephemeral: true, content: `${emojis.set} Selecione uma opção:` });
+        
     }
 });
 
@@ -44,15 +45,11 @@ createResponder({
     types: [ResponderType.Button], cache: "cached",
 
     async run(interaction) {
-        const statusMsg = await interaction.reply({
+        await interaction.update({
             content: "Defina o status atual deste ticket:",
             components: [rowTicketSetStatusButtons],
-            ephemeral: true 
+            
         });
-
-        setTimeout(() => {
-            statusMsg.delete();
-        }, 2500);
     }
 });
 
@@ -126,7 +123,7 @@ createResponder({
     types: [ResponderType.Button], cache: "cached",
 
     async run(interaction) {
-        await interaction.reply({ content: `${emojis.user} | Adicione um usuário neste ticket:`, components: [selectNewUser], ephemeral: true });
+        await interaction.update({ content: `${emojis.user} | Adicione um usuário neste ticket:`, components: [selectNewUser] });
     }
 });
 
@@ -166,7 +163,7 @@ createResponder({
             return;
         }
 
-        await interaction.reply({ content: `${emojis.user} | Selecione um usuário para ser removido deste ticket:`, components: [selectedRemoveUser], ephemeral: true });
+        await interaction.update({ content: `${emojis.user} | Selecione um usuário para ser removido deste ticket:`, components: [selectedRemoveUser] });
     }
 });
 

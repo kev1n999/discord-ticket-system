@@ -2,25 +2,36 @@ import { createResponder, ResponderType } from "#base";
 import { prisma } from "#database";
 import { createRow } from "@magicyan/discord";
 import { EmbedBuilder, RoleSelectMenuBuilder } from "discord.js";
+import { originalEmbed } from "discord/commands/private/ticket-system";
 import { rowEmbedOptions } from "discord/components/buttons/embed-options.js";
-import { selectsConfigOptions } from "discord/components/buttons/system-options";
+import { anteriorMessage, selectsConfigOptions, systemButtonsRow } from "discord/components/buttons/system-options";
 import { removeOptionsModal } from "discord/components/modals/remove-options";
 import { selectsModal } from "discord/components/modals/seletcs-create";
 import { selectTicketCategory } from "discord/components/selects/select-category.js";
 import { selectChannel } from "discord/components/selects/select-channel.js";
 import { emojis } from "discord/emojis/emojis_mentions";
 
-// Envia o select para definição do canal de texto da abertura
+// Definição do canal de texto da abertura
 createResponder({
     customId: "set-channel-button",
     types: [ResponderType.Button], cache: "cached",
 
     async run(interaction) {
-        await interaction.reply({
+        await interaction.update({
             content: `${emojis.settings} | Defina qual será o canal de texto responsável pela abertura de tickets:`,
-            components: [selectChannel],
-            ephemeral: true 
+            components: [selectChannel, anteriorMessage],
+            embeds: []
         });
+    }
+});
+
+// Volta para a mensagem inicial/original
+createResponder({
+    customId: "voltar-button",
+    types: [ResponderType.Button], cache: "cached",
+
+    async run(interaction) {
+        await interaction.update({ components: [systemButtonsRow], embeds: [originalEmbed] });
     }
 });
 
@@ -37,10 +48,9 @@ createResponder({
             color: 0x2b2d31
         });
 
-        await interaction.reply({
-            components: [rowEmbedOptions],
+        await interaction.update({
+            components: [rowEmbedOptions, anteriorMessage],
             embeds: [embedConfig],
-            ephemeral: true 
         });
     }
 });
@@ -51,10 +61,10 @@ createResponder({
     types: [ResponderType.Button], cache: "cached",
 
     async run(interaction) {
-        await interaction.reply({
+        await interaction.update({
             content: `${emojis.settings} | Defina qual será a categoria responsável pelos canais/tickets abertos:`,
-            components: [selectTicketCategory],
-            ephemeral: true 
+            components: [selectTicketCategory, anteriorMessage],
+            embeds: []
         });
     }
 });
@@ -72,7 +82,7 @@ createResponder({
             }).setDefaultRoles()
         );
 
-        await interaction.reply({ components: [selectRole], ephemeral: true, content: `${emojis.settings} | Defina qual será o cargo responsável pela staff:` });
+        await interaction.update({ components: [selectRole, anteriorMessage], content: `${emojis.settings} | Defina qual será o cargo responsável pela staff:`, embeds: [] });
     }
 });
 
@@ -82,7 +92,7 @@ createResponder({
     types: [ResponderType.Button], cache: "cached",
 
     async run(interaction) {
-        await interaction.reply({ components: [selectsConfigOptions], ephemeral: true });
+        await interaction.update({ components: [selectsConfigOptions, anteriorMessage], embeds: [] });
     }
 });
 

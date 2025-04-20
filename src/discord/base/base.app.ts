@@ -1,4 +1,4 @@
-import { Client, ClientOptions, version as djsVersion } from "discord.js";
+import { ActivityType, Client, ClientOptions, version as djsVersion } from "discord.js";
 import { baseErrorHandler, logger, validateEnv } from "#settings";
 import { CustomItents, CustomPartials } from "@magicyan/discord";
 import { baseAutocompleteHandler, baseCommandHandler, baseRegisterCommands } from "./base.command.js";
@@ -85,6 +85,12 @@ function createClient(token: string, options: BootstrapOptions) {
         if (options.whenReady){
             options.whenReady(client);
         }
+
+        client.user.setPresence({
+            activities: [
+                { "name": "Simple Store - 2025", type: ActivityType.Playing }
+            ]
+        });
     });
 
     client.on("interactionCreate", async (interaction) => {
