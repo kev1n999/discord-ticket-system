@@ -1,5 +1,6 @@
 import { createResponder, ResponderType } from "#base";
 import { TextChannel } from "database/bases/channel.js";
+import { anteriorMessage } from "discord/components/buttons/system-options";
 import { emojis } from "discord/emojis/emojis_mentions";
 
 createResponder({
@@ -12,6 +13,7 @@ createResponder({
 
         await interaction.update({
             content: `${emojis.settings} | Canal de texto configurado com sucesso! (<#${selectedChannel}>)`,
+            components: [anteriorMessage]
         });
     }
 });

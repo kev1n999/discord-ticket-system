@@ -5,3 +5,9 @@ model SelectOptions {
     description String ?
     value String
 }
+
+model MessageSelect {
+    id Int @id 
+
+    messageId String
+}

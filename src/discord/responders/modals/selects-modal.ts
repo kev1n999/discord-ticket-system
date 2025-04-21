@@ -1,6 +1,8 @@
 import { ResponderType } from "#base";
 import { prisma } from "#database";
 import { createResponder } from "discord";
+import { TextChannel } from "discord.js";
+import { getSelectMenuOptions } from "discord/components/selects/select-product";
 import { emojis } from "discord/emojis/emojis_mentions";
 
 createResponder({
@@ -20,10 +22,28 @@ createResponder({
             return;
         }
 
+        // Cria e armazena uma nova opção ao select-menu
         await prisma.selectOptions.create({
             data: { label: label, description: description, value: value }
         });
 
+        const channelId = await prisma.textChannel.findUnique({ where: {id : 1} });
+        const selectMessage = await prisma.messageSelect.findUnique({ where: { id: 1 }});
+        
+        const textChannel = interaction.guild?.channels.cache.get(channelId!.channelId) as TextChannel;
+
+        if (!textChannel) {
+            await interaction.reply({ content: `${emojis.settings} | Opção criada com sucesso!\n-# Não se esqueça de definir um canal de texto!`, ephemeral: true });
+            return;
+        } else if (!selectMessage?.messageId) {
+            await interaction.reply({ content: `${emojis.settings} | Opção criada com sucesso!`, ephemeral: true });
+            return;
+        }
+
+        const message = textChannel.messages.cache.get(selectMessage.messageId);
         await interaction.reply({ content: `${emojis.settings} | Opção criada com sucesso!`, ephemeral: true });
+
+        const updatedSelect = await getSelectMenuOptions();
+        await message?.edit({ components: [updatedSelect] });
     }
 });

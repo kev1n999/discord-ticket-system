@@ -1,7 +1,7 @@
 import { createResponder, ResponderType } from "#base";
 import { prisma } from "#database";
 import { createRow } from "@magicyan/discord";
-import { EmbedBuilder, RoleSelectMenuBuilder } from "discord.js";
+import { EmbedBuilder, RoleSelectMenuBuilder, TextChannel } from "discord.js";
 import { originalEmbed } from "discord/commands/private/ticket-system";
 import { rowEmbedOptions } from "discord/components/buttons/embed-options.js";
 import { anteriorMessage, selectsConfigOptions, systemButtonsRow } from "discord/components/buttons/system-options";
@@ -110,8 +110,14 @@ createResponder({
         }
 
         await prisma.selectOptions.deleteMany();
+        const channelId = await prisma.textChannel.findUnique({ where: {id : 1} });
+        const selectMessage = await prisma.messageSelect.findUnique({ where: { id: 1 }});
+        const textChannel = interaction.guild?.channels.cache.get(channelId!.channelId) as TextChannel;
 
-        await interaction.reply({ content: `${emojis.set} Todas as opções foram deletadas com sucesso.`, ephemeral: true });
+        const message = textChannel.messages.cache.get(selectMessage!.messageId);
+
+        await interaction.reply({ content: `${emojis.set} Todas as opções foram deletadas com sucesso.`, ephemeral: true  });
+        await message?.delete();
     }
 });
 

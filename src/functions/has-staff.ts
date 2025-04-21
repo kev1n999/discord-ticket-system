@@ -10,4 +10,4 @@ export async function isStaff(member: GuildMember) {
     }
 
     return true;
-}
+} 

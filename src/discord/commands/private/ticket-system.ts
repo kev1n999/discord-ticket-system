@@ -3,8 +3,7 @@ import { ApplicationCommandType, EmbedBuilder, PermissionFlagsBits } from "disco
 import { systemButtonsRow } from "discord/components/buttons/system-options.js";
 import { emojis } from "discord/emojis/emojis_mentions";
 
-const imageURL = "https://media.discordapp.net/attachments/1360683138791248013/1363578173249294617/c9798e06-0364-40b0-825f-8c8edca34857.png?ex=68068aa2&is=68053922&hm=fbafdd63a64f9a81416d9c060ca62eb46050755db0b134cb8c3917c40f2bcb0f&=&format=webp&quality=lossless";
-
+const imageURL = "https://media.discordapp.net/attachments/1360683138791248013/1363947140816044102/banner.png?ex=6807e243&is=680690c3&hm=d21fc64321c0521b4a8004626a94e51ffed7f0d89c544414fd521f5e141988e4&=&format=webp&quality=lossless";
 const embedDescription = `# ${emojis.settings} | Sistema de Tickets - Configuração\n${emojis.set}  Olá! Seja bem vindo ao painel para configurar o sistema de tickets neste servidor.\n\n**${emojis.raio} | Opções disponíveis:**\n\n${emojis.set} Canal de Texto: Definir canal de abertura\n${emojis.set} Embed: Definir embed\n${emojis.set} Categoria: Definir categoria dos tickets\n${emojis.set} Selects: Criar ou remover opções de abertura\n${emojis.set} Cargo Staff: Definir o cargo da staff.`;
 
 export const originalEmbed = new EmbedBuilder({

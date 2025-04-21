@@ -73,7 +73,7 @@ export const anteriorMessage = createRow(
     new ButtonBuilder({
         style: ButtonStyle.Secondary,
         customId: "voltar-button",
-        emoji: emojis.voltar
+        emoji: emojis.home
     })
 );
 

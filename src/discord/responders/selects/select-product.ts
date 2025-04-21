@@ -16,7 +16,6 @@ createResponder({
         const getCategoryId = await prisma.category.findUnique({ where: { id: 1 } });
         try {
             if (getCategoryId?.categoryId) {
-            
                 const ticketChannel = await interaction.guild?.channels.create({
                     name: `📂-${interaction.member?.user.username}`,
                     type: ChannelType.GuildText,
