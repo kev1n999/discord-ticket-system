@@ -10,9 +10,8 @@ createResponder({
         const selectedChannel = interaction.values[0];
         new TextChannel(selectedChannel).saveTextChannel();
 
-        await interaction.reply({
+        await interaction.update({
             content: `${emojis.settings} | Canal de texto configurado com sucesso! (<#${selectedChannel}>)`,
-            ephemeral: true 
         });
     }
 });
