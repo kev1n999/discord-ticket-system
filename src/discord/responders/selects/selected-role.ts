@@ -11,6 +11,6 @@ createResponder({
         const roleId = interaction.values[0];
         await prisma.staffRole.create({ data: { id: 1, staffRoleId: roleId } });
         
-        await interaction.reply({ content: `${emojis.settings} | Cargo da staff foi definido com sucesso.`, ephemeral: true });
+        await interaction.update({ content: `${emojis.settings} | Cargo da staff foi definido com sucesso.` });
     }
 });

@@ -10,9 +10,8 @@ createResponder({
         const categoryId = interaction.values[0];
         new TicketCategory(categoryId).saveCategory();
 
-        await interaction.reply({
-            content: `${emojis.settings} | Categoria definida com sucesso!`,
-            ephemeral: true 
+        await interaction.update({
+            content: `${emojis.settings} | Categoria definida com sucesso!`
         });
     }
 });
