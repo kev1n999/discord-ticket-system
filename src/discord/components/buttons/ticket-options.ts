@@ -2,6 +2,7 @@
 
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
 import { emojis_mentions } from "discord/emojis/mentions.json";
+import { generateTranscriptButton } from "./generate-transcript";
 
 // Botão com opções para a staff
 const staffPainel = new ButtonBuilder({
@@ -125,5 +126,5 @@ export const rowCloseAndDeleteButtons = new ActionRowBuilder<ButtonBuilder>().ad
 
 // Row que atualiza os components após o encerramento do ticket
 export const rowOptionsUpdate = new ActionRowBuilder<ButtonBuilder>().addComponents(
-    deleteTicketButton
+    generateTranscriptButton, deleteTicketButton
 );
